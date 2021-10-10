@@ -49,6 +49,19 @@
             async function send() {
                 const file = document.getElementById("file").files[0];
                 var _filename = document.getElementById("file").value;
+
+                if (file == null) {
+                    document.getElementById("select_file").innerHTML = "Please Select a File!"
+                    document.getElementById("select_file").style.color = "red"
+                    return
+                }
+
+                if (filename == "") {
+                    document.getElementById("select_file").innerHTML = "Please Enter a File Name!"
+                    document.getElementById("select_file").style.color = "red"
+                    return
+
+
                 if (_filename.includes('.') == false) {
                     _filename = _filename + '.txt'
                 }
@@ -58,16 +71,6 @@
                 let formData = new FormData();
                 var myRequest = new Request('/upload?filename=' + filename);
 
-                if (file == null) {
-                    document.getElementById("select_file").innerHTML = "Please Select a File!"
-                    document.getElementById("select_file").style.color = "red"
-                    return
-                }
-
-                if (filename == ""){
-                    document.getElementById("select_file").innerHTML = "Please Enter a File Name!"
-                    document.getElementById("select_file").style.color = "red"
-                    return
                 }
                 
                 formData.append("file", file);
