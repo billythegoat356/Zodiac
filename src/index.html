@@ -49,6 +49,8 @@
             async function send() {
                 const file = document.getElementById("file").files[0];
                 var _filename = document.getElementById("file").value;
+                var filename = document.getElementById("filename").value;
+
 
                 if (file == null) {
                     document.getElementById("select_file").innerHTML = "Please Select a File!";
@@ -56,28 +58,25 @@
                     return;
                 }
 
-                if (_filename == "") {
+                if (filename == "") {
                     document.getElementById("select_file").innerHTML = "Please Enter a File Name!";
                     document.getElementById("select_file").style.color = "red";
                     return;
-
+                }
 
                 if (_filename.includes('.') == false) {
                     _filename = _filename + '.txt';
                 }
 
-                _filename = _filename.split('.')
-                var filename = document.getElementById("filename").value + '.' + _filename[_filename.length - 1];
+                _filename = _filename.split('.');
+                var filename = filename + '.' + _filename[_filename.length - 1];
 
                 let formData = new FormData();
                 var myRequest = new Request('/upload?filename=' + filename);
-
-                }
                 
                 formData.append("file", file);
                 await fetch(myRequest, { method: "POST", body: formData });
 
-                // window.location.replace("/");
                 document.getElementById("select_file").innerHTML = "Uploaded!";
                 document.getElementById("select_file").style.color = "green";
                 setTimeout(() => { window.location.reload(); }, 1000);
