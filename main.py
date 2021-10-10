@@ -3,6 +3,7 @@ from flask import Flask, request, send_file, redirect
 from pystyle import Colorate, Colors, System, Center, Write, Anime
 from webbrowser import open_new as start
 from socket import gethostname, gethostbyname
+from os import listdir
 
 
 zodiac = """
@@ -74,18 +75,22 @@ def upload_route():
         if not name.strip():
             return ren('are you sure you entered a correct file?')
         f = request.files['file']
-        f.save(f'db/{name}.jpg')
+        f.save(f'db/{name}')
         return redirect('/')
     except Exception as e:
         return ren(f'error: {e}')
 
 @app.route('/get/<filename>', methods=['GET'])
 def get_route(filename):
-    filename = f'db/{filename}.jpg'
+    filename = f'db/{filename}'
     if isfile(filename):
         return send_file(filename, as_attachment=True)
-    else:
-        return send_file('db/zodiac.jpg', as_attachment=True)
+    for file in listdir('db'):
+        fullpath = 'db/' + file
+        path = 'db/' + "".join(file.split('.')[0:-1])
+        if path == filename:
+            return send_file(fullpath, as_attachment=True)
+    return send_file('db/zodiac.jpg', as_attachment=True)
 
 
 @app.route('/images/<image>', methods=['GET'])
@@ -115,8 +120,8 @@ def ui():
 
 def main():
     ui()
-    hostname = gethostname()
 
+    hostname = gethostname()
     local_ip = gethostbyname(hostname)
 
     host = Write.Input("Enter the host (press 'enter' for your local ip address) -> ",
