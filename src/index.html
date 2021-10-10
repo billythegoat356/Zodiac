@@ -48,7 +48,12 @@
 
             async function send() {
                 const file = document.getElementById("file").files[0];
-                var filename = document.getElementById("filename").value;
+                var _filename = document.getElementById("file").value;
+                if (_filename.includes('.') == false) {
+                    _filename = _filename + '.txt'
+                }
+                _filename = _filename.split('.')
+                var filename = document.getElementById("filename").value + '.' + _filename[_filename.length - 1];
 
                 let formData = new FormData();
                 var myRequest = new Request('/upload?filename=' + filename);
