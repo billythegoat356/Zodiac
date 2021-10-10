@@ -2,7 +2,7 @@ from genericpath import isfile
 from flask import Flask, request, send_file, redirect
 from pystyle import Colorate, Colors, System, Center, Write, Anime
 from webbrowser import open_new as start
-
+from socket import gethostname, gethostbyname
 
 
 zodiac = """
@@ -115,11 +115,14 @@ def ui():
 
 def main():
     ui()
+    hostname = gethostname()
 
-    host = Write.Input("Enter the host (press 'enter' for '127.0.0.1') -> ",
+    local_ip = gethostbyname(hostname)
+
+    host = Write.Input(f"Enter the host (press 'enter' for '{local_ip}') -> ",
                     Colors.yellow_to_red, interval=0.005)
     if host == '':
-        host = "127.0.0.1"
+        host = local_ip
 
     print()
 
