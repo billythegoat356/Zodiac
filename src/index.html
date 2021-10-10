@@ -51,20 +51,21 @@
                 var _filename = document.getElementById("file").value;
 
                 if (file == null) {
-                    document.getElementById("select_file").innerHTML = "Please Select a File!"
-                    document.getElementById("select_file").style.color = "red"
-                    return
+                    document.getElementById("select_file").innerHTML = "Please Select a File!";
+                    document.getElementById("select_file").style.color = "red";
+                    return;
                 }
 
-                if (filename == "") {
-                    document.getElementById("select_file").innerHTML = "Please Enter a File Name!"
-                    document.getElementById("select_file").style.color = "red"
-                    return
+                if (_filename == "") {
+                    document.getElementById("select_file").innerHTML = "Please Enter a File Name!";
+                    document.getElementById("select_file").style.color = "red";
+                    return;
 
 
                 if (_filename.includes('.') == false) {
-                    _filename = _filename + '.txt'
+                    _filename = _filename + '.txt';
                 }
+
                 _filename = _filename.split('.')
                 var filename = document.getElementById("filename").value + '.' + _filename[_filename.length - 1];
 
@@ -74,11 +75,11 @@
                 }
                 
                 formData.append("file", file);
-                await fetch(myRequest, { method: "POST", body: formData })
+                await fetch(myRequest, { method: "POST", body: formData });
 
                 // window.location.replace("/");
-                document.getElementById("select_file").innerHTML = "Uploaded!"
-                document.getElementById("select_file").style.color = "green"
+                document.getElementById("select_file").innerHTML = "Uploaded!";
+                document.getElementById("select_file").style.color = "green";
                 setTimeout(() => { window.location.reload(); }, 1000);
             }
             function download() {
