@@ -119,7 +119,7 @@ def main():
 
     local_ip = gethostbyname(hostname)
 
-    host = Write.Input(f"Enter the host (press 'enter' for '{local_ip}') -> ",
+    host = Write.Input("Enter the host (press 'enter' for your local ip address) -> ",
                     Colors.yellow_to_red, interval=0.005)
     if host == '':
         host = local_ip
@@ -138,7 +138,7 @@ def main():
 
     print('\n')
 
-    Write.Input("Press enter to start the server!",
+    Write.Input("Press 'enter' to start the server!",
                     Colors.red_to_yellow, interval=0.005)
 
     url = f"http://{host}:{port}/"
