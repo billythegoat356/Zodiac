@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zodiac</title>
+    <link rel="icon" href="images/logo.jpg">
+
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <div class="header_logo">
+                <a href="https://github.com/billythegoat356"><img src="images/billy.jpg"></a>
+                <a href="https://github.com/KanekiWeb"><img src="images/kaneki.jpg"></a>
+                <a href="https://github.com/billythegoat356/Zodiac"><img src="images/zodiac.jpg"></a>
+            </div>
+            <div class="header_links">
+                <input class="search" type="text" name="search" id="search" placeholder="Search...">
+                <button class="download" onclick="download()"><img src="images/search.jpg" width="20", height="20"></button>
+            </div>
+        </nav>
+    </header>
+
+    <h1 class="zodiac"><i><a href="https://github.com/billythegoat356/Zodiac">Zodiac</a></i></h1>
+
+    <section class="content">
+        <div class="fileUpload btn btn-primary">
+            <span class="select_a_file" id="select_file">Select a File</span>
+            <input class="file_upload" type="file" name="file" id="file">
+        </div>
+        <input disabled class="file_uploaded" type="text" name="file_sent" id="file_sent" placeholder="No File Selected...">
+        <input class="filename" type="text" name="filename" id="filename" placeholder="File Name...">
+
+        <button onclick="send()">Upload</button>
+
+
+        <script>
+
+            document.getElementById("file").onchange = function() {
+                var filename = this.value.split('\\')
+                document.getElementById("file_sent").value = filename[filename.length - 1];
+            };
+
+            async function send() {
+                const file = document.getElementById("file").files[0];
+                var filename = document.getElementById("filename").value;
+
+                let formData = new FormData();
+                var myRequest = new Request('/upload?filename=' + filename);
+
+                if (file == null) {
+                    document.getElementById("select_file").innerHTML = "Please Select a File!"
+                    document.getElementById("select_file").style.color = "red"
+                    return
+                }
+
+                if (filename == ""){
+                    document.getElementById("select_file").innerHTML = "Please Enter a File Name!"
+                    document.getElementById("select_file").style.color = "red"
+                    return
+                }
+                
+                formData.append("file", file);
+                await fetch(myRequest, { method: "POST", body: formData })
+
+                // window.location.replace("/");
+                document.getElementById("select_file").innerHTML = "Uploaded!"
+                document.getElementById("select_file").style.color = "green"
+                setTimeout(() => { window.location.reload(); }, 1000);
+            }
+            function download() {
+                var search = document.getElementById("search").value;
+
+                if (search == "") {
+                    var search = "zodiac";
+                }
+
+                document.getElementById("search").value = "";
+                window.location.replace('/get/' + search)
+            }
+
+
+        </script>
+    </section>
+
+    <footer>
+        Developped with ❤️ by <a class="links" href="https://github.com/billythegoat356">Billy</a> and <a class="links" href="https://github.com/KanekiWeb">Kaneki Web</a>
+    </footer>
+
+</body>
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+/* Reset */
+
+*, *::before, *::after {
+    padding: 0;
+    margin: 0;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-image: linear-gradient(120deg, #16161a, #3C0000);
+    color: #fff;
+    font-family: "Poppins", sans-serif;
+    min-height: 100vh;
+}
+
+
+
+footer {
+    font-family: 'Roboto', sans-serif;
+    opacity: 1;
+    font-size: 13.5px;
+    width: 100%;
+    color: #ccc;
+    text-align: center;
+    padding: 20px 0px 10px 0px;
+    margin-bottom: 5px;
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+    height: 30px;
+    width: 100%;
+}
+
+footer a {
+    color: rgb(223, 68, 68);
+}
+
+header nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 40px;
+}
+
+header nav .header_links ul {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+header nav .header_links ul li, section.main ul li {
+    list-style-type: none;
+}
+
+header nav .header_links ul li a {
+    outline: none;
+    text-decoration: none;
+    color: #a6a8b8;
+    padding: 5px 12px;
+    transition: 0.3s all;
+    font-size: 15px;
+}
+
+header nav .header_links ul li a:hover {
+    color: white;
+}
+
+header nav .header_logo img {
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+    border: 5px solid #3b3d4e93;
+}
+
+.links {
+	text-decoration-color: transparent;
+}
+
+
+
+
+.zodiac {
+    text-align: center;
+    margin-top: 100px;
+    font-size: 70px;
+}
+
+.zodiac a {
+    color: white;
+    text-decoration-color: transparent;
+}
+
+
+section.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-top: 75px;
+}
+
+section.content input.file_upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+
+
+section.content input.filename,  section.content input.file_uploaded{
+    color: white;
+    background: #101013;
+    border-style: none;
+    outline: none;
+    padding: 5px 5px 5px 10px;
+    width: 270px;
+    height: 30px;
+    margin-top: 10px;
+    border-radius: 25px;
+    transition: 0.5s;
+}
+
+section.content input.filename:focus {
+    transition: 2s;
+    width: 320px;
+}
+
+section.content input.filename:hover {
+    transition: 0.3s;
+    background: #131316;
+}
+
+
+section.content button {
+    background: #a0312f;
+    color: white;
+    border-style: none;
+    border-radius: 20px;
+    width: 100px;
+    height: 40px;
+    transition: 0.3s all;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+section.content button:hover {
+    background: #722221;
+    transition: 0.3s all;
+}
+
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+    border-radius: 50px;
+    transition: 0.5s;
+}
+
+.fileUpload span:hover {
+    transition: 0.3s;
+    background: #131316;
+}
+
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+.fileUpload span {
+    color: #ccc;
+    background: #101013;
+    border-style: none;
+    outline: none;
+    padding: 10px 0 5px;
+    width: 270px;
+    height: 30px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 7px;
+}
+
+.preview {
+    margin-top: 20px;
+    width: 100px;
+}
+
+.search {
+    color: white;
+    background: #101013;
+    border-style: none;
+    outline: none;
+    padding: 5px 5px 5px 10px;
+    width: 75px;
+    height: 30px;
+    margin-top: 10px;
+    border-radius: 25px;
+    transition: 0.5s;
+}
+
+.search:hover {
+    transition: 0.3s;
+    background: #131316;
+}
+
+.search:focus {
+    transition: 1s;
+    width: 280px;
+}
+
+.download {
+    background: #a0312f;
+    color: white;
+    border-style: none;
+    border-radius: 7px;
+    width: 50px;
+    height: 50px;
+    transition: 0.3s all;
+    cursor: pointer;
+    margin-left: 40px;
+    border-radius: 100%;
+}
+.download:hover {
+    background: #722221;
+    transition: 0.3s all;
+}
+
+</style>
+
+</html>
