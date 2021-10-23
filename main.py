@@ -3,7 +3,11 @@ from flask import Flask, request, send_file, redirect
 from pystyle import Colorate, Colors, System, Center, Write, Anime
 from webbrowser import open_new as start
 from socket import gethostname, gethostbyname
-from os import listdir
+from os import listdir, chdir
+
+
+path = '/'.join(__file__.split('\\')[:-1])
+chdir(path)
 
 
 zodiac = """
