@@ -6,9 +6,9 @@ from socket import gethostname, gethostbyname
 from os import listdir, chdir, name
 
 
-if name == 'nt':
-     path = '/'.join(__file__.split('\\')[:-1])
-     chdir(path)
+if name == 'nt' and __file__:
+    path = '/'.join(__file__.split('\\')[:-1])
+    chdir(path)
 
 
 zodiac = """
