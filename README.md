@@ -48,9 +48,9 @@ to share files in your local network easily, with a web interface.
 <p align="center"><strong><i>⚪🟢🔵🔴🟣⚫</i></strong</p>
 
 <br><br>
-* Time: 🟢
+* Time: 🔴
 * Complexity: 🔵
-* Service: 🔵
+* Service: 🔴
 <br><br>
 
 -----
