@@ -1,9 +1,9 @@
-from genericpath import isfile
 from flask import Flask, request, send_file, redirect
 from pystyle import Colorate, Colors, System, Center, Write, Anime
 from webbrowser import open_new as start
 from socket import gethostname, gethostbyname
 from os import listdir, chdir, name
+from os.path import isfile
 
 
 
